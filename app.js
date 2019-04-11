@@ -23,14 +23,16 @@ var newGame = document.querySelector(".new-game");
 //functions
 
 function compChoice() {
+    compMove = [rock, paper, scissors];
     var randomNumber = Math.floor(Math.random() * 3);
+    return compMove[randomNumber];
 }
 
 function compare() {
 
-    if (compMove == userMove) {
+    if (compMove === userMove) {
         output.innerHTML = "It's a draw!";
-    } else if ((userMove == 1 && compMove == 2) || (userMove == 2 && compMove == 3) || (userMove == 3 && compMove == 1)) {
+    } else if ((userMove == 1 && compMove == 3) || (userMove == 2 && compMove == 1) || (userMove == 3 && compMove == 2)) {
         output.innerHTML = compMove + " beats " + userChoice + ". You lost :(";
         compScore.innerHTML = compScore++;
     } else {
@@ -68,8 +70,8 @@ pickScissors.addEventListener('click', function() {
 
 newGame.addEventListener('click', function() {
     rounds = window.prompt('How many rounds did you win?');
-    userScore = userScore.innerHTML = 0;
-    compScore = compScore.innerHTML = 0;
+    userScore = 0;
+    compScore = 0;
     if (isNaN(rounds)) {
         actionMessage.innerHTML = 'Please pick a number!';
     }
