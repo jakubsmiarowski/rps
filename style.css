@@ -96,9 +96,8 @@ header h1 {
 .new-game {
     height: 50px;
     width: 200px;
-    position: absolute;
-    top: 85%;
-    left: 44%;
+    display: block;
+    margin: 20px auto;
     cursor: pointer;
     line-height: 20px;
     font-family: 'Open Sans', sans-serif;
