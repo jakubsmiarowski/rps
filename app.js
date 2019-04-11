@@ -6,9 +6,11 @@ var scissors = 'Scissors';
 var userMove;
 var compMove;
 var rounds;
+var userScore = 0;
+var compScore = 0;
 var userChoice = pickRock || pickPaper || pickScissors;
-var userScore = document.getElementById("user-score");
-var compScore = document.getElementById("computer-score");
+var userScore_board = document.getElementById("user-score");
+var compScore_board = document.getElementById("computer-score");
 var output = document.querySelector(".output > p");
 var actionMessage = document.querySelector(".action-message")
 
@@ -23,9 +25,7 @@ var newGame = document.querySelector(".new-game");
 //functions
 
 function compChoice() {
-    compMove = [rock, paper, scissors];
-    var randomNumber = Math.floor(Math.random() * 3);
-    return compMove[randomNumber];
+    return Math.floor(Math.random() * 3 + 1);
 }
 
 function compare() {
@@ -34,10 +34,10 @@ function compare() {
         output.innerHTML = "It's a draw!";
     } else if ((userMove == 1 && compMove == 3) || (userMove == 2 && compMove == 1) || (userMove == 3 && compMove == 2)) {
         output.innerHTML = compMove + " beats " + userChoice + ". You lost :(";
-        compScore.innerHTML = compScore++;
+        compScore_board.innerHTML = 1 + compScore++;
     } else {
         output.innerHTML = userChoice + " beats " + compMove + ". You won!!!";
-        userScore.innerHTML = userScore++;
+        userScore_board.innerHTML = 1 + userScore++;
     }
 }
 
@@ -70,9 +70,10 @@ pickScissors.addEventListener('click', function() {
 
 newGame.addEventListener('click', function() {
     rounds = window.prompt('How many rounds did you win?');
-    userScore = 0;
-    compScore = 0;
+    userScore_board.innerHTML = 0;
+    compScore_board.innerHTML = 0;
     if (isNaN(rounds)) {
         actionMessage.innerHTML = 'Please pick a number!';
     }
+    return;
 });
