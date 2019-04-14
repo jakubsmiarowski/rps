@@ -1,5 +1,4 @@
 //variables
-
 var rock = 'Rock';
 var paper = 'Paper';
 var scissors = 'Scissors';
@@ -8,14 +7,14 @@ var compMove;
 var rounds;
 var userScore = 0;
 var compScore = 0;
-var userChoice = pickRock || pickPaper || pickScissors;
-var userScore_board = document.getElementById("user-score");
-var compScore_board = document.getElementById("computer-score");
+
+//outputs
+var userScoreBoard = document.getElementById("user-score");
+var compScoreBoard = document.getElementById("computer-score");
 var output = document.querySelector(".output > p");
 var actionMessage = document.querySelector(".action-message")
 
 //buttons variables
-
 var pickRock = document.getElementById('rock');
 var pickPaper = document.getElementById('paper');
 var pickScissors = document.getElementById('scissors');
@@ -25,55 +24,79 @@ var newGame = document.querySelector(".new-game");
 //functions
 
 function compChoice() {
-    return Math.floor(Math.random() * 3 + 1);
-}
-
-function compare() {
-
-    if (compMove === userMove) {
-        output.innerHTML = "It's a draw!";
-    } else if ((userMove == 1 && compMove == 3) || (userMove == 2 && compMove == 1) || (userMove == 3 && compMove == 2)) {
-        output.innerHTML = compMove + " beats " + userChoice + ". You lost :(";
-        compScore_board.innerHTML = 1 + compScore++;
+    var move = Math.floor(Math.random() * 3 + 1);
+    if (move == 1) {
+        return paper;
+    } else if (move == 2) {
+        return rock;
     } else {
-        output.innerHTML = userChoice + " beats " + compMove + ". You won!!!";
-        userScore_board.innerHTML = 1 + userScore++;
+        return scissors;
     }
 }
 
+function compare() {
+    compMove = compChoice();
+    if ((userMove == paper && compMove == rock) || (userMove == rock && compMove == scissors) || (userMove == scissors && compMove == paper)) {
+        output.innerHTML = userMove + " beats " + compMove + ". You won!";
+        userScoreBoard.innerHTML = 1 + userScore++;
+    } else if ((userMove == rock && compMove == paper) || (userMove == scissors && compMove == rock) || (userMove == paper && compMove == scissors)) {
+        output.innerHTML = compMove + " beats " + userMove + ". You lose!";
+        compScoreBoard.innerHTML = 1 + compScore++;
+    } else {
+        output.innerHTML = "It is a draw!";
+    }
+    checkWinner();
+}
 
+function checkWinner() {
+
+    if (userScore == 15) {
+        rounds = window.alert('You won entire game! Congratulations!');
+        reset();
+    } else if (compScore == 15) {
+        rounds = window.alert('You lost entire game :( Better luck next time!');
+        reset();
+    }
+}
+
+function reset() {
+    rounds = 0;
+    userScore = 0;
+    compScore = 0;
+    userScoreBoard.innerHTML = 0;
+    compScoreBoard.innerHTML = 0;
+}
+
+function endGame() {
+    rounds = window.prompt('How many rounds did you win?');
+    if (isNaN(rounds)) {
+        window.prompt('Please pick a number!');
+        endGame();
+    }
+}
 
 //buttons listeners
 
 pickRock.addEventListener('click', function() {
-    userMove = 2;
-    userChoice = rock;
-    compMove = compChoice();
+    userMove = rock;
     compare();
+    /* wg zadania powinno być compare(rock); */
 });
 
 pickPaper.addEventListener('click', function() {
-    userMove = 1;
-    userChoice = paper;
-    compMove = compChoice();
+    userMove = paper;
     compare();
 });
 
 pickScissors.addEventListener('click', function() {
-    userMove = 3;
-    userChoice = scissors;
-    compMove = compChoice();
+    userMove = scissors;
     compare();
 });
 
 // NEWGAME
 
 newGame.addEventListener('click', function() {
-    rounds = window.prompt('How many rounds did you win?');
-    userScore_board.innerHTML = 0;
-    compScore_board.innerHTML = 0;
-    if (isNaN(rounds)) {
-        actionMessage.innerHTML = 'Please pick a number!';
-    }
-    return;
+    endGame();
+    reset(); //do resetowania zmiennych
+    /* Stworzyłbym funkcję do pobierania rund, analogicznie jak w temperaturach żeby if(isNan) siebie samą wywoływała w kółko */
 });
