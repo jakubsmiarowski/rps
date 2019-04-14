@@ -108,8 +108,8 @@ header h1 {
     color: #ffb142;
 }
 
-@media (max-width: 320px) {
-    .header {
+@media(max-width: 360px) {
+    header {
         height: 150px;
     }
 }
