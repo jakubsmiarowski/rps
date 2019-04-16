@@ -45,19 +45,18 @@ function compare() {
     } else {
         output.innerHTML = "It is a draw!";
     }
-    checkWinner();
 }
 
 function checkWinner() {
 
-    if (userScore == 15) {
-        rounds = window.alert('You won entire game! Congratulations!');
-        reset();
-    } else if (compScore == 15) {
-        rounds = window.alert('You lost entire game :( Better luck next time!');
-        reset();
+    if (userScore > compScore) {
+        alert('You won entire game! Congratulations!');
+    } else if (compScore > userScore) {
+        alert('You lost entire game :( Better luck next time!');
     }
 }
+
+
 
 function reset() {
     rounds = 0;
@@ -65,6 +64,7 @@ function reset() {
     compScore = 0;
     userScoreBoard.innerHTML = 0;
     compScoreBoard.innerHTML = 0;
+    output.innerHTML = ('Try your luck!');
 }
 
 function endGame() {
@@ -97,6 +97,7 @@ pickScissors.addEventListener('click', function() {
 
 newGame.addEventListener('click', function() {
     endGame();
-    reset(); //do resetowania zmiennych
+    checkWinner();
+    setTimeout(reset(), 5000); //do resetowania zmiennych
     /* Stworzyłbym funkcję do pobierania rund, analogicznie jak w temperaturach żeby if(isNan) siebie samą wywoływała w kółko */
 });
