@@ -39,19 +39,22 @@ function compare() {
     if ((userMove == paper && compMove == rock) || (userMove == rock && compMove == scissors) || (userMove == scissors && compMove == paper)) {
         output.innerHTML = userMove + " beats " + compMove + ". You won!";
         userScoreBoard.innerHTML = 1 + userScore++;
+        checkWinner();
     } else if ((userMove == rock && compMove == paper) || (userMove == scissors && compMove == rock) || (userMove == paper && compMove == scissors)) {
         output.innerHTML = compMove + " beats " + userMove + ". You lose!";
         compScoreBoard.innerHTML = 1 + compScore++;
+        checkWinner();
     } else {
         output.innerHTML = "It is a draw!";
+        checkWinner();
     }
 }
 
 function checkWinner() {
 
-    if (userScore > compScore) {
+    if (userScore > rounds) {
         alert('You won entire game! Congratulations!');
-    } else if (compScore > userScore) {
+    } else if (compScore > rounds) {
         alert('You lost entire game :( Better luck next time!');
     }
 }
@@ -97,7 +100,6 @@ pickScissors.addEventListener('click', function() {
 
 newGame.addEventListener('click', function() {
     endGame();
-    checkWinner();
     setTimeout(reset(), 5000); //do resetowania zmiennych
     /* Stworzyłbym funkcję do pobierania rund, analogicznie jak w temperaturach żeby if(isNan) siebie samą wywoływała w kółko */
 });
