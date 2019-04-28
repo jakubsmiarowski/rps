@@ -52,9 +52,9 @@ function compare() {
 
 function checkWinner() {
 
-    if (userScore > rounds) {
+    if (userScore == rounds) {
         rounds = alert('You won entire game! Congratulations!');
-    } else if (compScore > rounds) {
+    } else if (compScore == rounds) {
         rounds = alert('You lost entire game :( Better luck next time!');
     }
 }
