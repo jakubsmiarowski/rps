@@ -1,12 +1,19 @@
 //variables
-var rock = 'Rock';
-var paper = 'Paper';
-var scissors = 'Scissors';
-var userMove;
-var compMove;
-var rounds;
-var userScore = 0;
-var compScore = 0;
+var params = {
+    rock: 'Rock',
+    paper: 'Paper',
+    scissors: 'Scissors',
+    userMove: [params.rock, params.paper, params.scissors],
+    compMove: "",
+    rounds: 0,
+    userScore: 0,
+    compScore: 0,
+    progress: [],
+};
+
+var overlay = document.getElementById('overlay');
+var modal = document.getElementById('modal');
+var modalHeader = document.querySelector(".modal > h1");
 
 //outputs
 var userScoreBoard = document.getElementById("user-score");
@@ -26,23 +33,23 @@ var newGame = document.querySelector(".new-game");
 function compChoice() {
     var move = Math.floor(Math.random() * 3 + 1);
     if (move == 1) {
-        return paper;
+        return params.paper;
     } else if (move == 2) {
-        return rock;
+        return params.rock;
     } else {
-        return scissors;
+        return params.scissors;
     }
 }
 
 function compare() {
-    compMove = compChoice();
-    if ((userMove == paper && compMove == rock) || (userMove == rock && compMove == scissors) || (userMove == scissors && compMove == paper)) {
-        output.innerHTML = userMove + " beats " + compMove + ". You won!";
-        userScoreBoard.innerHTML = 1 + userScore++;
+    params.compMove = compChoice();
+    if ((params.userMove == params.paper && params.compMove == params.rock) || (params.userMove == params.rock && params.compMove == params.scissors) || (params.userMove == params.scissors && params.compMove == params.paper)) {
+        output.innerHTML = params.userMove + " beats " + params.compMove + ". You won!";
+        userScoreBoard.innerHTML = 1 + params.userScore++;
         checkWinner();
-    } else if ((userMove == rock && compMove == paper) || (userMove == scissors && compMove == rock) || (userMove == paper && compMove == scissors)) {
+    } else if ((params.userMove == params.rock && params.compMove == params.paper) || (params.userMove == params.scissors && params.compMove == params.rock) || (params.userMove == params.paper && params.compMove == params.scissors)) {
         output.innerHTML = compMove + " beats " + userMove + ". You lose!";
-        compScoreBoard.innerHTML = 1 + compScore++;
+        compScoreBoard.innerHTML = 1 + params.compScore++;
         checkWinner();
     } else {
         output.innerHTML = "It is a draw!";
@@ -52,47 +59,64 @@ function compare() {
 
 function checkWinner() {
 
-    if (userScore > rounds) {
-        rounds = alert('You won entire game! Congratulations!');
-    } else if (compScore > rounds) {
-        rounds = alert('You lost entire game :( Better luck next time!');
+    if (params.userScore > params.rounds) {
+        params.rounds = alert('You won entire game! Congratulations!');
+    } else if (params.compScore > params.rounds) {
+        params.rounds = alert('You lost entire game :( Better luck next time!');
     }
 }
 
+function update() {
+    var object = {
+        roundsNumber: params.rounds,
+    }
+    params.progress.push(object);
+}
 
+function showModal() {
+    event.preventDefault();
+    overlay.classList.add('show');
+    checkWinner();
+}
+
+function hideModal() {
+    event.preventDefault();
+    overlay.classList.remove('show');
+}
 
 function reset() {
-    rounds = 0;
-    userScore = 0;
-    compScore = 0;
+    params.rounds = 0;
+    params.userScore = 0;
+    params.compScore = 0;
     userScoreBoard.innerHTML = 0;
     compScoreBoard.innerHTML = 0;
     output.innerHTML = ('Try your luck!');
 }
 
 function endGame() {
-    rounds = window.prompt('How many rounds did you win?');
-    if (isNaN(rounds)) {
+    params.rounds = window.prompt('How many rounds did you win?');
+    if (isNaN(params.rounds)) {
         alert('Please pick a number!');
         endGame();
     }
 }
 
+
+
 //buttons listeners
 
 pickRock.addEventListener('click', function() {
-    userMove = rock;
+    params.userMove[0];
     compare();
-    /* wg zadania powinno być compare(rock); */
 });
 
 pickPaper.addEventListener('click', function() {
-    userMove = paper;
+    params.userMove[1];
     compare();
 });
 
 pickScissors.addEventListener('click', function() {
-    userMove = scissors;
+    params.userMove[2];
     compare();
 });
 
