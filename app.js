@@ -59,10 +59,10 @@ function compare() {
 
 function checkWinner() {
 
-    if (params.userScore > params.rounds) {
-        params.rounds = alert('You won entire game! Congratulations!');
-    } else if (params.compScore > params.rounds) {
-        params.rounds = alert('You lost entire game :( Better luck next time!');
+    if (params.userScore == params.rounds) {
+        rounds = alert('You won entire game! Congratulations!');
+    } else if (params.compScore == params.rounds) {
+        rounds = alert('You lost entire game :( Better luck next time!');
     }
 }
 
