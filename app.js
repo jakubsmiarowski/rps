@@ -3,8 +3,8 @@ var params = {
     rock: 'Rock',
     paper: 'Paper',
     scissors: 'Scissors',
-    userMove: [params.rock, params.paper, params.scissors],
-    compMove: "",
+    userMove,
+    compMove,
     rounds: 0,
     userScore: 0,
     compScore: 0,
@@ -42,18 +42,21 @@ function compChoice() {
 }
 
 function compare() {
-    params.compMove = compChoice();
+    compMove = compChoice();
     if ((params.userMove == params.paper && params.compMove == params.rock) || (params.userMove == params.rock && params.compMove == params.scissors) || (params.userMove == params.scissors && params.compMove == params.paper)) {
         output.innerHTML = params.userMove + " beats " + params.compMove + ". You won!";
         userScoreBoard.innerHTML = 1 + params.userScore++;
         checkWinner();
+        update();
     } else if ((params.userMove == params.rock && params.compMove == params.paper) || (params.userMove == params.scissors && params.compMove == params.rock) || (params.userMove == params.paper && params.compMove == params.scissors)) {
-        output.innerHTML = compMove + " beats " + userMove + ". You lose!";
+        output.innerHTML = params.compMove + " beats " + params.userMove + ". You lose!";
         compScoreBoard.innerHTML = 1 + params.compScore++;
         checkWinner();
+        update();
     } else {
         output.innerHTML = "It is a draw!";
         checkWinner();
+        update();
     }
 }
 
@@ -68,9 +71,20 @@ function checkWinner() {
 
 function update() {
     var object = {
-        roundsNumber: params.rounds,
+        roundNumber: params.rounds,
+        userPick: params.userMove,
+        compPick: params.compMove,
+        userWon: params.userScore++,
+        compWon: params.compScore++,
     }
     params.progress.push(object);
+}
+
+function table() {
+    var tableModal = document.createElement("TABLE");
+    for (var i = 0; i < params.progress.length; i++) {
+        tableModal.innerHTML = "<tr> + <td> + params.progress[i].numerRundy + </td>"
+    }
 }
 
 function showModal() {
@@ -106,24 +120,23 @@ function endGame() {
 //buttons listeners
 
 pickRock.addEventListener('click', function() {
-    params.userMove[0];
+    params.userMove == params.rock;
     compare();
 });
 
 pickPaper.addEventListener('click', function() {
-    params.userMove[1];
+    params.userMove == params.paper;
     compare();
 });
 
 pickScissors.addEventListener('click', function() {
-    params.userMove[2];
+    params.userMove == params.scissors;
     compare();
 });
 
 // NEWGAME
 
 newGame.addEventListener('click', function() {
-    reset(); //do resetowania zmiennych
+    reset();
     endGame();
-    /* Stworzyłbym funkcję do pobierania rund, analogicznie jak w temperaturach żeby if(isNan) siebie samą wywoływała w kółko */
 });
