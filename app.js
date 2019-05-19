@@ -3,8 +3,8 @@ var params = {
     rock: 'Rock',
     paper: 'Paper',
     scissors: 'Scissors',
-    userMove,
-    compMove,
+    userMove: "",
+    compMove: "",
     rounds: 0,
     userScore: 0,
     compScore: 0,
@@ -48,15 +48,18 @@ function compare() {
         userScoreBoard.innerHTML = 1 + params.userScore++;
         checkWinner();
         update();
+        table();
     } else if ((params.userMove == params.rock && params.compMove == params.paper) || (params.userMove == params.scissors && params.compMove == params.rock) || (params.userMove == params.paper && params.compMove == params.scissors)) {
         output.innerHTML = params.compMove + " beats " + params.userMove + ". You lose!";
         compScoreBoard.innerHTML = 1 + params.compScore++;
         checkWinner();
         update();
+        table();
     } else {
         output.innerHTML = "It is a draw!";
         checkWinner();
         update();
+        table();
     }
 }
 
@@ -81,16 +84,15 @@ function update() {
 }
 
 function table() {
-    var tableModal = document.createElement("TABLE");
+    var table = document.getElementById("modalTable");
     for (var i = 0; i < params.progress.length; i++) {
-        tableModal.innerHTML = "<tr> + <td> + params.progress[i].numerRundy + </td>"
+        table.innerHTML = "<tr> + <td> + params.progress[i].roundNumber + </td> <br>"
     }
 }
 
 function showModal() {
     event.preventDefault();
     overlay.classList.add('show');
-    checkWinner();
 }
 
 function hideModal() {
@@ -109,6 +111,7 @@ function reset() {
 
 function endGame() {
     params.rounds = window.prompt('How many rounds did you win?');
+    showModal();
     if (isNaN(params.rounds)) {
         alert('Please pick a number!');
         endGame();
@@ -133,6 +136,15 @@ pickScissors.addEventListener('click', function() {
     params.userMove == params.scissors;
     compare();
 });
+
+//closing modal
+
+overlay.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
 
 // NEWGAME
 
