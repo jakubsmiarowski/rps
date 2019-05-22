@@ -118,7 +118,7 @@ header h1 {
     background: rgba(0, 0, 0, 0.7);
 }
 
-.overlay .show {
+.overlay.show {
     display: block;
 }
 
@@ -132,8 +132,16 @@ header h1 {
     transform: translate3d(-50%, -50%, 0);
 }
 
-.modal .show {
+.modal.show {
     display: block;
+}
+
+.btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    color: black;
 }
 
 @media(max-width: 360px) {
