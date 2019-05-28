@@ -123,13 +123,25 @@ header h1 {
 }
 
 .modal {
+    width: 450px;
+    height: 400px;
     display: none;
     background: #fff;
-    width: 200px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
+}
+
+.modal h2 {
+    font-size: 20px;
+    color: #e84118;
+    margin-bottom: 10px;
+}
+
+.modal p {
+    font-size: 15px;
+    color: #2c2c54;
 }
 
 .modal.show {

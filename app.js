@@ -54,9 +54,8 @@ function compare() {
             params.userMove + " beats " + params.compMove + ". You won!";
         params.userScore++;
         userScoreBoard.innerHTML = params.userScore;
+        params.progress.push({ content: 'YOU WON! You chose: ' + params.userMove + ' PC chose: ' + params.compMove + ', Score: ' + params.userScore + ' | ' + params.compScore });
         checkWinner();
-        update();
-        table();
     } else if (
         (params.userMove == params.rock && params.compMove == params.paper) ||
         (params.userMove == params.scissors && params.compMove == params.rock) ||
@@ -66,28 +65,30 @@ function compare() {
         output.innerHTML =
             params.compMove + " beats " + params.userMove + ". You lose!";
         compScoreBoard.innerHTML = params.compScore;
+        params.progress.push({ content: 'YOU LOST! You chose: ' + params.userMove + ' PC chose: ' + params.compMove + ', Score: ' + params.userScore + ' | ' + params.compScore });
         checkWinner();
-        update();
-        table();
     } else {
         output.innerHTML = "It is a draw!";
+        params.progress.push({ content: 'YOU TIED!' });
         checkWinner();
-        update();
-        table();
     }
 }
 
 function checkWinner() {
+    table.innerHTML = "";
     if (params.userScore == params.rounds) {
-        table.innerHTML = "You won entire game! Congratulations!";
+        table.innerHTML = "<h2>You won entire game! Congratulations!</h2>";
         showModal();
     } else if (params.compScore == params.rounds) {
-        table.innerHTML = "You lost entire game :( Better luck next time!";
+        table.innerHTML = "<h2>You lost entire game :( Better luck next time!</h2>";
         showModal();
     }
-}
 
-function update() {
+    for (var i = 0; i < params.progress.length; i++) {
+        table.innerHTML += "<p>" + params.progress[i].content + "</p>";
+    }
+}
+/*function update() {
     var object = {
         roundNumber: params.rounds,
         userPick: params.userMove,
@@ -99,30 +100,12 @@ function update() {
 }
 
 function table() {
-
     table.innerHTML = "";
     for (var i = 0; i < params.progress.length; i++) {
-        table.innerHTML +=
-            "<tr><td>" +
-            i +
-            "</td><td>" +
-            params.progress[i].userPick +
-            "</td></tr>";
-        table.innerHTML +=
-            "<tr><td>" +
-            i +
-            "</td><td>" +
-            params.progress[i].userWon +
-            "</td></tr>";
-        table.innerHTML +=
-            "<tr><td>" +
-            i +
-            "</td><td>" +
-            params.progress[i].compWon +
-            "</td></tr>";
-    }
-}
+        table.innerHTML += "<p>" + params.progress.length + '. ' + params.progress[i].content + "</p>";
 
+    }
+}*/
 
 function showModal() {
     event.preventDefault();
